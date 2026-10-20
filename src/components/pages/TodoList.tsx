@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { todoList } from "../../data/todos";
 import type { Todo } from "../../types/todo.type";
 import ToDoListItem from "../todoList/todoListItem";
@@ -41,6 +41,11 @@ function TodoList() {
     setEditId(todo.id);
   }
 
+  const todoCounter = useMemo(
+    () => todos.filter((todo) => todo.isCompleted === false).length,
+    [todos],
+  );
+
   return (
     <div className="flex flex-col">
       {/* title */}
@@ -55,6 +60,7 @@ function TodoList() {
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
+      <div>jumlah todolist dengan status todo: {todoCounter}</div>
 
       {/* bagian tampilan todolist */}
       <ul>
