@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 function Counter() {
   const [counter, setCounter] = useState(0);
   const [hitungan, setHitungan] = useState(1);
 
   // 1. useEffect versi 1 tanpa deps
-  useEffect(() => console.log("use effect dijalankan"));
+  // useEffect(() => console.log("use effect dijalankan"));
 
-  // 2. useEffect versi 2
-  useEffect(() => console.log("use effect versi 2 dijalankan"), []);
+  // // 2. useEffect versi 2
+  // useEffect(() => console.log("use effect versi 2 dijalankan"), []);
 
-  // 3. useEffect versi 3
-  useEffect(() => console.log("use effect versi 3 dijalankan"), [counter, hitungan]);
+  // // 3. useEffect versi 3
+  // useEffect(() => console.log("use effect versi 3 dijalankan"), [counter, hitungan]);
 
   function increase() {
     setCounter((counter) => counter + 1);
