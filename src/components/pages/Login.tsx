@@ -3,7 +3,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.email("the email format is wrong"),
+  email: z.email(),
   password: z.string().min(8, "the minimum password length is 8"),
 });
 
