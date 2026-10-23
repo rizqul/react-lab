@@ -1,25 +1,34 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import TraineeCard from "./components/cards/TraineeCard";
-import withLoading from "./hoc/withLoading";
+import useLoading from "./hooks/useLoading";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const TraineeCardWithLoading = withLoading(TraineeCard);
+  const isLoading = useLoading(5000);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="mx-auto w-full max-w-sm rounded-md border border-blue-300 p-4">
+        <div className="flex animate-pulse space-x-4">
+          <div className="size-10 rounded-full bg-gray-200"></div>
+          <div className="flex-1 space-y-6 py-1">
+            <div className="h-2 rounded bg-gray-200"></div>
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2 h-2 rounded bg-gray-200"></div>
+                <div className="col-span-1 h-2 rounded bg-gray-200"></div>
+              </div>
+              <div className="h-2 rounded bg-gray-200"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
       <h1>Belajar HOC dengan withLoading</h1>
-
-      <TraineeCardWithLoading loading={loading} firstName="King" lastName="Tashim" username="king_tashim" />
+      <TraineeCard firstName="King" lastName="Tashim" username="king_tashim" />
     </div>
   );
 }
