@@ -1,15 +1,25 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import Test from "./components/pages/Test";
-
-// ada 3 cara styling
-// 1. inline styling
-// 2. internal styling
-// 3. external styling (css biasa dan module css)
+import TraineeCard from "./components/cards/TraineeCard";
+import withLoading from "./hoc/withLoading";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const TraineeCardWithLoading = withLoading(TraineeCard);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col">
-      <Test />
+      <h1>Belajar HOC dengan withLoading</h1>
+
+      <TraineeCardWithLoading loading={loading} firstName="King" lastName="Tashim" username="king_tashim" />
     </div>
   );
 }
