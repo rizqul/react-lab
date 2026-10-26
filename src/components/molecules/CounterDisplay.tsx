@@ -1,4 +1,4 @@
-import { useCounter } from "./CounterContext";
+import { useCounter } from "../../context/CounterContext";
 
 function CounterDisplay() {
   const { state } = useCounter();

@@ -1,7 +1,7 @@
 import "./App.css";
 import AppProviders from "./providers/AppProviders";
-import CounterDisplay from "./context/CounterDisplay";
-import CounterControl from "./context/CounterControl";
+import CounterDisplay from "./components/molecules/CounterDisplay";
+import CounterControl from "./components/molecules/CounterControl";
 
 function App() {
   return (
