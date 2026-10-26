@@ -57,21 +57,6 @@ function Counter() {
       <div className="bg-lime-300 rounded-md text-center py-8 mb-4">
         <h1>result calculate : {resultCalculate}</h1>
       </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <button className="bg-amber-100 p-4 rounded-md" onClick={increase}>
-          +
-        </button>
-        <button className="bg-amber-100 p-4 rounded-md" onClick={decrease}>
-          -
-        </button>
-        <button className="bg-amber-100 p-4 rounded-md col-span-2" onClick={reset}>
-          RESET
-        </button>
-        <button className="bg-amber-100 p-4 rounded-md col-span-2" onClick={handleCountingRender}>
-          add
-        </button>
-      </div>
     </div>
   );
 }
