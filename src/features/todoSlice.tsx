@@ -14,11 +14,13 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action: { payload: string }) => {
+    // 2. type payload diganti
+    addTodo: (state, action: { payload: Todo }) => {
       const newTodo: Todo = {
-        id: Date.now(),
-        description: action.payload,
-        isCompleted: false,
+        // 3. implement payload
+        id: action.payload.id,
+        description: action.payload.description,
+        isCompleted: action.payload.isCompleted,
       };
       state.todos.push(newTodo);
     },

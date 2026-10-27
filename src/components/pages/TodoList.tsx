@@ -10,9 +10,9 @@ function TodoList() {
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
 
-  // before
+  // before (menggunakan state local)
   const [todos, setTodos] = useState<Todo[]>(todoList);
-  // after
+  // after (menggunakan redux)
   const todosRedux = useSelector((state: RootState) => state.todo.todos);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -20,7 +20,14 @@ function TodoList() {
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    dispatch(addTodo(description));
+    // 1. ditambah parameter
+    dispatch(
+      addTodo({
+        id: Date.now(),
+        description: description,
+        isCompleted: false,
+      }),
+    );
 
     setDescription("");
     setEditId(null);
