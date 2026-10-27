@@ -3,6 +3,7 @@ import CounterDisplay from "./components/molecules/CounterDisplay";
 import CounterControl from "./components/molecules/CounterControl";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import TodoList from "./components/pages/TodoList";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Provider store={store}>
         <CounterDisplay />
         <CounterControl />
+        <TodoList />
       </Provider>
     </div>
   );

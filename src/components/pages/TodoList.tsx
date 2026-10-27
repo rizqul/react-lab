@@ -2,31 +2,32 @@ import { useState } from "react";
 import { todoList } from "../../data/todos";
 import type { Todo } from "../../types/todo.type";
 import ToDoListItem from "../todoList/todoListItem";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
+import { addTodo } from "../../features/todoSlice";
 
 function TodoList() {
   const [description, setDescription] = useState("");
-  const [todos, setTodos] = useState<Todo[]>(todoList);
   const [editId, setEditId] = useState<number | null>(null);
+
+  // before
+  const [todos, setTodos] = useState<Todo[]>(todoList);
+  // after
+  const todosRedux = useSelector((state: RootState) => state.todo.todos);
+  const dispatch = useDispatch<AppDispatch>();
 
   const isEditing = editId != null;
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
-    setTodos((prev) => [
-      ...prev,
-      { id: Date.now(), description: description, isCompleted: false },
-    ]);
+    dispatch(addTodo(description));
 
     setDescription("");
     setEditId(null);
   }
 
   function handleSaveTodo() {
-    setTodos((todoSebelumnya) =>
-      todoSebelumnya.map((todo) =>
-        todo.id === editId ? { ...todo, description: description } : todo,
-      ),
-    );
+    setTodos((todoSebelumnya) => todoSebelumnya.map((todo) => (todo.id === editId ? { ...todo, description: description } : todo)));
 
     setDescription("");
     setEditId(null);
@@ -48,29 +49,16 @@ function TodoList() {
 
       {/* user input */}
       <div>
-        <input
-          type="text"
-          placeholder="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <input type="text" placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)} />
       </div>
 
       {/* bagian tampilan todolist */}
       <ul>
-        {todos.map((val) => (
-          <ToDoListItem
-            key={val.id}
-            todo={val}
-            handleDeleteTodo={handleDeleteTodo}
-            handleEditTodo={handleEditTodo}
-          />
+        {todosRedux.map((val) => (
+          <ToDoListItem key={val.id} todo={val} handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} />
         ))}
       </ul>
-      <button
-        onClick={isEditing ? handleSaveTodo : handleAddTodo}
-        className="bg-amber-900 text-amber-100 text-2xl w-fit"
-      >
+      <button onClick={isEditing ? handleSaveTodo : handleAddTodo} className="bg-amber-900 text-amber-100 text-2xl w-fit">
         {isEditing ? "Save" : "Add"}
       </button>
     </div>
