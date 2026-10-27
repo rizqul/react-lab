@@ -1,19 +1,23 @@
 import "./App.css";
-import CounterDisplay from "./components/molecules/CounterDisplay";
-import CounterControl from "./components/molecules/CounterControl";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
-import TodoList from "./components/pages/TodoList";
+import { BrowserRouter, Route, Routes } from "react-router";
+import Login from "./components/pages/Login";
+import MainLayout from "./components/layout/MainLayout";
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
 
 function App() {
   return (
-    <div className="flex flex-col">
-      <Provider store={store}>
-        <CounterDisplay />
-        <CounterControl />
-        <TodoList />
-      </Provider>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
