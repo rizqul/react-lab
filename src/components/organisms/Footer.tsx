@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-neutral-primary-soft rounded-base shadow-xs border border-default m-4">
+    <footer className="bg-neutral-primary-soft rounded-base shadow-xs border border-default">
       <div className="w-full mx-auto max-w-7xl p-4 md:flex md:items-center md:justify-between">
         <span className="text-sm text-body sm:text-center">
           © 2023{" "}
