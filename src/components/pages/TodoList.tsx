@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { todoList } from "../../data/todos";
 import type { Todo, TodoJsonPlaceholder } from "../../types/todo.type";
 import ToDoListItem from "../todoList/todoListItem";
-import { getTodos } from "../../services/todo.services";
+import { deleteTodos, getTodos } from "../../services/todo.services";
 
 function TodoList() {
   const [description, setDescription] = useState("");
@@ -45,8 +45,14 @@ function TodoList() {
     setEditId(null);
   }
 
-  function handleDeleteTodo(id: number) {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  async function handleDeleteTodo(id: number) {
+    try {
+      await deleteTodos(id);
+      console.log(`data dengan ${id} berhasil di hapus`);
+      await loadTodos();
+    } catch (error) {
+      console.log("error : ", error);
+    }
   }
 
   // function handleEditTodo(todo: TodoJsonPlaceholderW) {
