@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -10,6 +11,7 @@ const loginSchema = z.object({
 type FormValues = z.infer<typeof loginSchema>;
 
 function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,8 @@ function Login() {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(`berhasil submit email : ${data.email} dan password : ${data.password}`);
+
+    navigate("/");
   };
 
   return (
