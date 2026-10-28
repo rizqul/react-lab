@@ -1,33 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { todoList } from "../../data/todos";
-import type { Todo } from "../../types/todo.type";
+import type { Todo, TodoJsonPlaceholder } from "../../types/todo.type";
 import ToDoListItem from "../todoList/todoListItem";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../store/store";
-import { addTodo } from "../../features/todoSlice";
+import { getTodos } from "../../services/todo.services";
 
 function TodoList() {
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
 
   // before (menggunakan state local)
-  const [todos, setTodos] = useState<Todo[]>(todoList);
+  const [todos, setTodos] = useState<TodoJsonPlaceholder[]>([]);
   // after (menggunakan redux)
-  const todosRedux = useSelector((state: RootState) => state.todo.todos);
-  const dispatch = useDispatch<AppDispatch>();
+  // const todosRedux = useSelector((state: RootState) => state.todo.todos);
+  // const dispatch = useDispatch<AppDispatch>();
+
+  // after nya after (menggunakan data hasil dari proses fetching)
+  const loadTodos = async () => {
+    try {
+      const data = await getTodos();
+      setTodos(data);
+    } catch (error) {
+      console.log("error " + error);
+    }
+  };
+
+  useEffect(() => {
+    loadTodos();
+  }, []);
 
   const isEditing = editId != null;
 
   // function untuk melakukan updating todolist
   function handleAddTodo() {
     // 1. ditambah parameter
-    dispatch(
-      addTodo({
-        id: Date.now(),
-        description: description,
-        isCompleted: false,
-      }),
-    );
 
     setDescription("");
     setEditId(null);
@@ -61,7 +66,7 @@ function TodoList() {
 
       {/* bagian tampilan todolist */}
       <ul>
-        {todosRedux.map((val) => (
+        {todos.map((val) => (
           <ToDoListItem key={val.id} todo={val} handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} />
         ))}
       </ul>
