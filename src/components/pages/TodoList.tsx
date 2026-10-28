@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { todoList } from "../../data/todos";
-import type { Todo, TodoJsonPlaceholder } from "../../types/todo.type";
+import type { TodoJsonPlaceholder } from "../../types/todo.type";
 import ToDoListItem from "../todoList/todoListItem";
 import { deleteTodos, getTodos } from "../../services/todo.services";
 

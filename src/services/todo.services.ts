@@ -14,7 +14,7 @@ export async function getTodos(): Promise<TodoJsonPlaceholder[]> {
 }
 
 // read by id
-export async function getTodosById(id: number): Promise<void> {
+export async function getTodosById(id: number): Promise<TodoJsonPlaceholder> {
   const res = api.get(`/todos/${id}`);
   return (await res).data;
 }
