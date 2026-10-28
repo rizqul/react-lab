@@ -1,31 +1,19 @@
-import type { Todo } from "../../types/todo.type";
+import type { Todo, TodoJsonPlaceholder } from "../../types/todo.type";
 
 interface TodoListItemProps {
-  todo: Todo;
+  todo: TodoJsonPlaceholder;
   handleDeleteTodo: (id: number) => void;
-  handleEditTodo: (todo: Todo) => void;
+  // handleEditTodo: (todo: TodoJsonPlaceholder) => void;
 }
 
-function ToDoListItem({
-  todo,
-  handleDeleteTodo,
-  handleEditTodo,
-}: TodoListItemProps) {
+function ToDoListItem({ todo, handleDeleteTodo }: TodoListItemProps) {
   return (
     <li key={todo.id}>
-      {todo.id} - {todo.description} - {todo.isCompleted ? "done" : "todo"}
-      <button
-        className="p-2 bg-red-600"
-        onClick={() => handleDeleteTodo(todo.id)}
-      >
+      {todo.userId} - {todo.id} - {todo.title} - {todo.completed ? "done" : "todo"}
+      <button className="p-2 bg-red-600" onClick={() => handleDeleteTodo(todo.id)}>
         Delete
       </button>
-      <button
-        className="p-2 bg-yellow-600"
-        onClick={() => handleEditTodo(todo)}
-      >
-        Edit
-      </button>
+      <button className="p-2 bg-yellow-600">Edit</button>
     </li>
   );
 }

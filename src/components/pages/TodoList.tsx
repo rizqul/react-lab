@@ -49,10 +49,10 @@ function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
-  function handleEditTodo(todo: Todo) {
-    setDescription(todo.description);
-    setEditId(todo.id);
-  }
+  // function handleEditTodo(todo: TodoJsonPlaceholderW) {
+  //   setDescription(todo);
+  //   setEditId(todo.id);
+  // }
 
   return (
     <div className="flex flex-col">
@@ -67,7 +67,7 @@ function TodoList() {
       {/* bagian tampilan todolist */}
       <ul>
         {todos.map((val) => (
-          <ToDoListItem key={val.id} todo={val} handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} />
+          <ToDoListItem key={val.id} todo={val} handleDeleteTodo={handleDeleteTodo} />
         ))}
       </ul>
       <button onClick={isEditing ? handleSaveTodo : handleAddTodo} className="bg-amber-900 text-amber-100 text-2xl w-fit">
