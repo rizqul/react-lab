@@ -28,6 +28,7 @@ function Login() {
       navigate("/");
     } catch (error) {
       console.log("error : ", error);
+      console.log(`berhasil submit username : ${data.username} dan password : ${data.password}`);
     }
   };
 
