@@ -2,10 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { z } from "zod";
+import { login } from "../../services/auth.services";
 
 const loginSchema = z.object({
-  email: z.email("the email format is wrong"),
-  password: z.string().min(8, "the minimum password length is 8"),
+  username: z.string().min(4, "the minimum password length is 4"),
+  password: z.string().min(4, "the minimum password length is 4"),
 });
 
 type FormValues = z.infer<typeof loginSchema>;
@@ -20,10 +21,14 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(`berhasil submit email : ${data.email} dan password : ${data.password}`);
-
-    navigate("/");
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      const res = await login(data);
+      console.log(`berhasil submit username : ${res.username}, role : ${res.role}, dan token : ${res.token}`);
+      navigate("/");
+    } catch (error) {
+      console.log("error : ", error);
+    }
   };
 
   return (
@@ -39,17 +44,17 @@ function Login() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Sign in to your account</h1>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="submit">
                 <div>
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Your email
+                  <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Your Username
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    {...register("email")}
+                    type="text"
+                    id="username"
+                    {...register("username")}
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                   />
-                  {errors.email && <p className="text-sm text-red-600 dark:text-red-400">{errors.email?.message}</p>}
+                  {errors.username && <p className="text-sm text-red-600 dark:text-red-400">{errors.username?.message}</p>}
                 </div>
                 <div>
                   <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
