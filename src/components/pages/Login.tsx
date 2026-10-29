@@ -3,9 +3,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 import { login } from "../../services/auth.services";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
 import { loginSuccess } from "../../features/authSlice";
+import type { LoginPayload } from "../../types/auth.types";
 
 const loginSchema = z.object({
   username: z.string().min(4, "the minimum password length is 4"),
@@ -16,7 +17,6 @@ type FormValues = z.infer<typeof loginSchema>;
 
 function Login() {
   const navigate = useNavigate();
-  const loginData = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
   const {
     register,
@@ -26,10 +26,11 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data: LoginPayload) => {
     try {
       // proses login ke backend
       const res = await login(data);
+
       // proses set state global
       dispatch(loginSuccess(res));
       navigate("/");
