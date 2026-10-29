@@ -1,6 +1,17 @@
-import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import type { AppDispatch } from "../../store/store";
+import { logout } from "../../features/authSlice";
 
 function Navbar() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <nav className="bg-neutral-primary w-full top-0 inset-s-0 border-b border-default">
       <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -34,6 +45,13 @@ function Navbar() {
             <Link to="/login" className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">
               Login
             </Link>
+            <button
+              onClick={handleLogout}
+              type="submit"
+              className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            >
+              Logout
+            </button>
           </ul>
         </div>
       </div>
