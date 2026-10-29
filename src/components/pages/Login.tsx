@@ -3,6 +3,9 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 import { login } from "../../services/auth.services";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
+import { loginSuccess } from "../../features/authSlice";
 
 const loginSchema = z.object({
   username: z.string().min(4, "the minimum password length is 4"),
@@ -13,6 +16,8 @@ type FormValues = z.infer<typeof loginSchema>;
 
 function Login() {
   const navigate = useNavigate();
+  const loginData = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -23,8 +28,10 @@ function Login() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
+      // proses login ke backend
       const res = await login(data);
-      console.log(`berhasil submit username : ${res.username}, role : ${res.role}, dan token : ${res.token}`);
+      // proses set state global
+      dispatch(loginSuccess(res));
       navigate("/");
     } catch (error) {
       console.log("error : ", error);
