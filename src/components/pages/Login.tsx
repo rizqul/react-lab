@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store";
 import { loginSuccess } from "../../features/authSlice";
 import type { LoginPayload } from "../../types/auth.types";
+import { startLoading, stopLoading } from "../../features/uiSlice";
 
 const loginSchema = z.object({
   username: z.string().min(4, "the minimum password length is 4"),
@@ -28,6 +29,8 @@ function Login() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: LoginPayload) => {
     try {
+      // mentriger action startLoading
+      dispatch(startLoading());
       // proses login ke backend
       const res = await login(data);
 
@@ -37,6 +40,8 @@ function Login() {
     } catch (error) {
       console.log("error : ", error);
       console.log(`berhasil submit username : ${data.username} dan password : ${data.password}`);
+    } finally {
+      dispatch(stopLoading());
     }
   };
 
