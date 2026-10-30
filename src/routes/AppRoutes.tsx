@@ -7,6 +7,8 @@ import NotFound from "../components/pages/NotFound";
 import TodoList from "../components/pages/TodoList";
 import User from "../components/pages/User";
 import StudentGuard from "./StudentGuard";
+import TransactionPage from "../components/pages/TransactionPage";
+import AuthGuard from "./AuthGuard";
 
 function AppRoutes() {
   return (
@@ -18,6 +20,9 @@ function AppRoutes() {
         <Route element={<StudentGuard />}>
           <Route path="/users" element={<User />} />
         </Route>
+      </Route>
+      <Route element={<AuthGuard />}>
+        <Route path="/transactions" element={<TransactionPage />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
