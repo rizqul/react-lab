@@ -9,6 +9,7 @@ import User from "../components/pages/User";
 import StudentGuard from "./StudentGuard";
 import TransactionPage from "../components/pages/TransactionPage";
 import AuthGuard from "./AuthGuard";
+import UserPage from "../components/pages/UserPage";
 
 function AppRoutes() {
   return (
@@ -17,9 +18,8 @@ function AppRoutes() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/todos" element={<TodoList />} />
-        <Route element={<StudentGuard />}>
-          <Route path="/users" element={<User />} />
-        </Route>
+        <Route path="/users" element={<UserPage />} />
+        <Route element={<StudentGuard />}></Route>
       </Route>
       <Route element={<AuthGuard />}>
         <Route path="/transactions" element={<TransactionPage />} />
