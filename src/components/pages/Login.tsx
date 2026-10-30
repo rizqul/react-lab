@@ -41,6 +41,7 @@ function Login() {
       console.log("error : ", error);
       console.log(`berhasil submit username : ${data.username} dan password : ${data.password}`);
     } finally {
+      // stop the loading
       dispatch(stopLoading());
     }
   };
