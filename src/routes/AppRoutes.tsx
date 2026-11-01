@@ -1,30 +1,27 @@
-import { Route, Routes } from "react-router";
-import MainLayout from "../components/layout/MainLayout";
-import About from "../components/pages/About";
-import Home from "../components/pages/Home";
-import Login from "../components/pages/Login";
-import NotFound from "../components/pages/NotFound";
-import TodoList from "../components/pages/TodoList";
-import User from "../components/pages/User";
-import StudentGuard from "./StudentGuard";
-import TransactionPage from "../components/pages/TransactionPage";
+import { Navigate, Route, Routes } from "react-router";
+import AppShell from "../components/templates/AppShell/AppShell";
+import LoginPage from "../components/pages/LoginPage/LoginPage";
+import NotFound from "../components/pages/NotFound/NotFound";
+import UserPage from "../components/pages/UserPage/UserPage";
+import AuthLayout from "../components/templates/AuthLayout/AuthLayout";
 import AuthGuard from "./AuthGuard";
-import UserPage from "../components/pages/UserPage";
+import AdminGuard from "./AdminGuard";
+import DashboardPage from "../components/pages/DashboardPage/DashboardPage";
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/todos" element={<TodoList />} />
-        <Route path="/users" element={<UserPage />} />
-        <Route element={<StudentGuard />}></Route>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<LoginPage />} />
       </Route>
       <Route element={<AuthGuard />}>
-        <Route path="/transactions" element={<TransactionPage />} />
+        <Route element={<AppShell />}>
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route element={<AdminGuard />}></Route>
+          <Route path="/users" element={<UserPage />} />
+        </Route>
       </Route>
-      <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
