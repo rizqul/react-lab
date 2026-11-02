@@ -5,7 +5,7 @@ import Button from "../../atoms/Button/Button";
 import FormField from "../../molecules/FormField/FormField";
 
 const loginSchema = z.object({
-  username: z.string().min(4, "Username must be at least 4 characters."),
+  email: z.email(),
   password: z.string().min(4, "Password must be at least 4 characters."),
 });
 export type LoginFormValues = z.infer<typeof loginSchema>;
@@ -25,7 +25,7 @@ function LoginForm({ error, isLoading, onSubmit }: LoginFormProps) {
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <FormField id="username" label="Username" autoComplete="username" error={errors.username?.message} {...register("username")} />
+      <FormField id="email" label="Email" type="email" autoComplete="email" error={errors.email?.message} {...register("email")} />
       <FormField id="password" label="Password" type="password" autoComplete="current-password" error={errors.password?.message} {...register("password")} />
       {error ? (
         <p role="alert" className="text-sm text-red-600">

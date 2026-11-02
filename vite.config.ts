@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/v1": {
-        target: "https://leptosomic-unransomed-anisha.ngrok-free.dev",
+        target: "http://localhost:8080",
         changeOrigin: true,
         secure: false,
       },
