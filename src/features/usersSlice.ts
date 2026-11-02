@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllUsersWithPage, type PaginatedUsers } from "../services/users.service";
-import type { UserSearchParams } from "../types/user.types";
+import { getAllUsersWithPage } from "../services/users.service";
+import type { PaginatedUsers, UserSearchParams } from "../types/user.types";
 
 interface UsersState {
   result: PaginatedUsers | null;
@@ -14,7 +14,7 @@ export const fetchUsers = createAsyncThunk<PaginatedUsers, UserSearchParams, { r
   try {
     return await getAllUsersWithPage(params);
   } catch (error) {
-    return rejectWithValue(error instanceof Error ? error.message : "Unable to load users.");
+    return rejectWithValue(error instanceof Error ? error.message : "Gagal memuat data user dari server!");
   }
 });
 
@@ -24,9 +24,18 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => { state.isLoading = true; state.error = null; })
-      .addCase(fetchUsers.fulfilled, (state, action) => { state.isLoading = false; state.result = action.payload; })
-      .addCase(fetchUsers.rejected, (state, action) => { state.isLoading = false; state.error = action.payload ?? action.error.message ?? "Unable to load users."; });
+      .addCase(fetchUsers.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.result = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload ?? action.error.message ?? "Gagal memuat data user dari server!";
+      });
   },
 });
 

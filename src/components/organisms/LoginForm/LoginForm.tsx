@@ -4,7 +4,10 @@ import { z } from "zod";
 import Button from "../../atoms/Button/Button";
 import FormField from "../../molecules/FormField/FormField";
 
-const loginSchema = z.object({ username: z.string().min(4, "Username must be at least 4 characters."), password: z.string().min(4, "Password must be at least 4 characters.") });
+const loginSchema = z.object({
+  username: z.string().min(4, "Username must be at least 4 characters."),
+  password: z.string().min(4, "Password must be at least 4 characters."),
+});
 export type LoginFormValues = z.infer<typeof loginSchema>;
 
 interface LoginFormProps {
@@ -19,6 +22,7 @@ function LoginForm({ error, isLoading, onSubmit }: LoginFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({ resolver: zodResolver(loginSchema) });
+
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
       <FormField id="username" label="Username" autoComplete="username" error={errors.username?.message} {...register("username")} />
@@ -29,7 +33,7 @@ function LoginForm({ error, isLoading, onSubmit }: LoginFormProps) {
         </p>
       ) : null}
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Signing in…" : "Sign in"}
+        {isLoading ? "Logging in…" : "Login"}
       </Button>
     </form>
   );

@@ -15,7 +15,11 @@ function Sidebar() {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login", { replace: true });
+
+    navigate("/login", {
+      replace: true,
+      state: null,
+    });
   };
   return (
     <aside className="border-r border-slate-200 bg-white p-3 md:w-56 flex flex-col justify-between">

@@ -1,21 +1,9 @@
-import type { User, UserSearchParams } from "../types/user.types";
+import type { PaginatedUsers, User, UserSearchParams } from "../types/user.types";
 import api from "./api";
 
 export async function getAllUsers(): Promise<User[]> {
   const res = await api.get("/users");
   return res.data;
-}
-
-export interface PaginatedUsers {
-  data: User[];
-  paging: {
-    currentPage: number;
-    totalPage: number;
-    size: number;
-    totalElements: number;
-    hasNext: boolean;
-    hasPrevious: boolean;
-  };
 }
 
 interface ApiEnvelope<T> {

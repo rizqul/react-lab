@@ -17,3 +17,15 @@ export interface UserSearchParams {
   sortBy?: string;
   direction?: string;
 }
+
+export interface PaginatedUsers {
+  data: User[];
+  paging: {
+    currentPage: number;
+    totalPage: number;
+    size: number;
+    totalElements: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+}
