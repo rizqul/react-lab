@@ -1,0 +1,14 @@
+services:
+  frontend:
+    build: .
+    container_name: "enigmaCareer-web"
+    ports:
+      - 80:80
+    networks:
+      - app_networks
+    restart: always
+
+networks:
+  app_networks:
+    name: enigma_network
+    external: true

@@ -5,7 +5,7 @@ import Button from "../../atoms/Button/Button";
 import FormField from "../../molecules/FormField/FormField";
 
 const loginSchema = z.object({
-  email: z.email(),
+  email: z.string().min(4, "email must be at least 4 characters."),
   password: z.string().min(4, "Password must be at least 4 characters."),
 });
 export type LoginFormValues = z.infer<typeof loginSchema>;
