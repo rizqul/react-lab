@@ -10,12 +10,12 @@ describe("Counter", () => {
     render(<Counter />);
 
     // Act
-    const getByRole = screen.getByRole("heading", {
+    const resultUI = screen.getByRole("heading", {
       name: "Counter : 0",
     });
 
     // Assert
-    expect(getByRole).toBeInTheDocument();
+    expect(resultUI).toBeInTheDocument();
   });
 
   // 2. check logic -> check increment dan check decrement
