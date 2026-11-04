@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { sum } from "./sum";
 
 // describe -> digunakan untuk mengelompokkan unit testing berdasar object testing

@@ -1,13 +1,14 @@
 import { BrowserRouter } from "react-router";
 
 import "./App.css";
-import AppRoutes from "./routes/AppRoutes";
+import Counter from "./test/Counter";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <AppRoutes />
+        {/* <AppRoutes /> */}
+        <Counter />
       </BrowserRouter>
     </>
   );
